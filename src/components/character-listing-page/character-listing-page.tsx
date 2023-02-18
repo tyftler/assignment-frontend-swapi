@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { characters } from '../../types/characters';
+import { ResourcesContext } from '../../contexts/resource';
 
 interface Props {}
 
 export default function CharacterListingPage(props: Props) {
+  const resources = useContext(ResourcesContext);
+
   return (
     <div className="character-listing-page">
       <h2>Characters</h2>
       <ul>
-        {characters.map((character, characterIndex) => (
-          <li key={`character-${character}`}>
-            <Link to={`/characters/${characterIndex}`}>{character}</Link>
+        {resources.characters.map(character => (
+          <li key={`character-${character.id}`}>
+            <Link to={`/characters/${character.id}`}>{character.name}</Link>
           </li>
         ))}
       </ul>
