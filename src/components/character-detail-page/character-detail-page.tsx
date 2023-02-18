@@ -6,12 +6,10 @@ import ErrorPage from '../error-page/error-page';
 interface Props {}
 
 export default function CharacterDetailPage(props: Props) {
-  const resources = useContext(ResourcesContext);
+  const { characters } = useContext(ResourcesContext);
   const { characterId } = useParams();
 
-  const character = resources.characters.find(
-    character => character.id === characterId
-  );
+  const character = characters.find(character => character.id === characterId);
 
   if (!character) {
     return <ErrorPage error={new Error('404 Not Found')} />;
