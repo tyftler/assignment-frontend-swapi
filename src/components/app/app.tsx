@@ -7,7 +7,8 @@ import {
   CircularProgress,
   CssBaseline,
   IconButton,
-  ThemeProvider
+  ThemeProvider,
+  Typography
 } from '@mui/material';
 import React, { PropsWithChildren } from 'react';
 import { ResourcesContext } from '../../contexts/resource';
@@ -37,7 +38,9 @@ export default function App({ children }: PropsWithChildren<Props>) {
     <div className="app-loading container">
       <Card>
         <CardContent>
-          <h2>May the SWAPI&apos;s response time be with you...</h2>
+          <Typography color="primary">
+            May the SWAPI&apos;s response time be with you...
+          </Typography>
 
           <CircularProgress color="secondary" />
         </CardContent>

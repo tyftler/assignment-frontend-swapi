@@ -23,7 +23,9 @@ export default function ErrorPage(props: Props) {
       <Card>
         <CardContent>
           <h2>Error</h2>
+
           <p>Sorry, something went wrong.</p>
+
           <code>{errorText}</code>
         </CardContent>
       </Card>

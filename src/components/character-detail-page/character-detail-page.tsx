@@ -20,7 +20,11 @@ export default function CharacterDetailPage(props: Props) {
 
   const renderList = (items: string[], placeholder: string) => {
     if (items.length <= 1) {
-      return items[0] ?? placeholder;
+      return (
+        <Typography color="text.secondary">
+          {items[0] ?? placeholder}
+        </Typography>
+      );
     }
 
     return (

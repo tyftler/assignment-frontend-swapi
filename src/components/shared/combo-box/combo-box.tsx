@@ -12,7 +12,6 @@ export default function ComboBox({ label, options, value, onChange }: Props) {
     <Autocomplete
       options={options}
       value={value || null}
-      disablePortal
       renderInput={props => <TextField {...props} label={label} />}
       className="combo-box"
       onChange={(_, val) => onChange(val ?? '')}

@@ -62,7 +62,7 @@ export default function CharacterListingPage(props: Props) {
             Species: <strong>{speciesFilter || 'Any'}</strong>
           </div>
           <div>
-            Year:{' '}
+            Birth Year:{' '}
             <strong>
               {minYearFilter
                 ? `${minYearFilter} ${minYearIsBbyFilter ? 'BBY' : 'ABY'}`
