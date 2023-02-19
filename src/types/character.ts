@@ -11,6 +11,7 @@ export interface Character {
   id?: string;
   mass: string;
   name: string;
+  signed_birth_year: number;
   skin_color: string;
   species: string[];
   starships: string[];

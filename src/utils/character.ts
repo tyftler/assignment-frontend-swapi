@@ -1,4 +1,5 @@
 import { Character, Film, Species, Starship } from '../types';
+import { parseSignedYear } from './year';
 
 export const getPopulatedCharacters = (
   characters: Character[],
@@ -36,7 +37,8 @@ export const getPopulatedCharacters = (
       id,
       species: populatedSpecies,
       films: populatedFilms,
-      starships: populatedStarships
+      starships: populatedStarships,
+      signed_birth_year: parseSignedYear(character.birth_year)
     };
   });
 };

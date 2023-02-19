@@ -4,7 +4,7 @@ import { useResources } from '../../hooks/resource';
 
 interface Props {}
 
-export default function App(props: PropsWithChildren<Props>) {
+export default function App({ children }: PropsWithChildren<Props>) {
   const [resources, isLoaded] = useResources();
 
   return (
@@ -14,7 +14,7 @@ export default function App(props: PropsWithChildren<Props>) {
       </header>
       {isLoaded ? (
         <ResourcesContext.Provider value={resources}>
-          {props.children}
+          {children}
         </ResourcesContext.Provider>
       ) : (
         'Loading...'

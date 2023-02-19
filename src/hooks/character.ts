@@ -3,21 +3,26 @@ import { Character } from '../types';
 
 export const useFilteredCharacters = (
   characters: Character[],
-  nameFilter: string
+  speciesFilter: string,
+  filmFilter: string,
+  minYearFilter: number,
+  maxYearFilter: number
 ): Character[] => {
   const [filteredCharacters, setFilteredCharacters] = useState(characters);
 
   useEffect(() => {
-    const comparableNameFilter = nameFilter.trim().toLowerCase();
-
     setFilteredCharacters(
-      comparableNameFilter
-        ? characters.filter(character =>
-            character.name.toLowerCase().includes(comparableNameFilter)
-          )
-        : characters
+      characters.filter(
+        character =>
+          (!speciesFilter ||
+            character.species.some(spec => spec === speciesFilter)) &&
+          (!filmFilter || character.films.some(film => film === filmFilter)) &&
+          (isNaN(minYearFilter) ||
+            character.signed_birth_year >= minYearFilter) &&
+          (isNaN(maxYearFilter) || character.signed_birth_year <= maxYearFilter)
+      )
     );
-  }, [characters, nameFilter]);
+  }, [characters, speciesFilter, filmFilter, minYearFilter, maxYearFilter]);
 
   return filteredCharacters;
 };
