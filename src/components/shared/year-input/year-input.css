@@ -1,0 +1,9 @@
+.year-input input::-webkit-outer-spin-button,
+.year-input input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.year-input input[type='number'] {
+  -moz-appearance: textfield;
+}

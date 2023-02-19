@@ -7,7 +7,7 @@ export const getSignedYear = (year: string, isBby: boolean): number => {
 };
 
 export const parseSignedYear = (epochYear: string): number => {
-  const match = epochYear.match(/^(\d+(?:\.\d+)?)([BA]BY)$/);
+  const match = epochYear.match(/^(\d+(?:\.\d+)?)\s?([BA]BY)$/);
 
   const year = match?.[1] ?? '';
   const isBby = match?.[2] === 'BBY';

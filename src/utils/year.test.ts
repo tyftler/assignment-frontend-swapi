@@ -40,31 +40,31 @@ describe('getSignedYear', () => {
 
 describe('parseSignedYear', () => {
   it('returns correct signed year for "100 BBY"', () => {
-    const signedYear = parseSignedYear('100BBY');
+    const signedYear = parseSignedYear('100 BBY');
 
     expect(signedYear).toStrictEqual(-100);
   });
 
   it('returns correct signed year for "100 ABY"', () => {
-    const signedYear = parseSignedYear('100ABY');
+    const signedYear = parseSignedYear('100 ABY');
 
     expect(signedYear).toStrictEqual(100);
   });
 
   it('returns correct signed year for "0 BBY"', () => {
-    const signedYear = parseSignedYear('0BBY');
+    const signedYear = parseSignedYear('0 BBY');
 
     expect(signedYear).toStrictEqual(-0);
   });
 
   it('returns correct signed year for "0 ABY"', () => {
-    const signedYear = parseSignedYear('0ABY');
+    const signedYear = parseSignedYear('0 ABY');
 
     expect(signedYear).toStrictEqual(0);
   });
 
   it('returns NaN for an invalid year', () => {
-    const signedYear = parseSignedYear('ABCBBY');
+    const signedYear = parseSignedYear('ABC BBY');
 
     expect(signedYear).toStrictEqual(NaN);
   });

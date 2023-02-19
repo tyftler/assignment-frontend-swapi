@@ -1,0 +1,15 @@
+div.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  margin-bottom: 16px;
+  padding: 16px 0;
+  border-radius: 0;
+}
+
+div.header .container {
+  display: flex;
+  align-items: center;
+}

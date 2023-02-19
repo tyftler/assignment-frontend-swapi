@@ -38,6 +38,8 @@ export const getPopulatedCharacters = (
       species: populatedSpecies,
       films: populatedFilms,
       starships: populatedStarships,
+      // add missing space between year and epoch
+      birth_year: character.birth_year.replace(/([BA]BY)/, ' $1'),
       signed_birth_year: parseSignedYear(character.birth_year)
     };
   });

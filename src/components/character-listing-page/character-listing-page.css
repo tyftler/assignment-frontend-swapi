@@ -1,0 +1,75 @@
+.character-listing-page .header .container {
+  align-items: flex-start;
+}
+
+.character-listing-page .character-listing-page-filter-button {
+  width: 100%;
+  margin-top: 8px;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.character-listing-page-filters-row {
+  display: flex;
+}
+
+.character-listing-page-filters-row + .character-listing-page-filters-row {
+  margin-top: 8px;
+}
+
+.character-listing-page .combo-box,
+.character-listing-page .year-input {
+  flex: 1;
+}
+
+.character-listing-page .card {
+  white-space: nowrap;
+}
+
+.character-listing-page .card svg {
+  float: left;
+  margin-right: 16px;
+  font-size: 56px;
+  color: #444444;
+}
+
+@media (max-width: 799.9px) {
+  .character-listing-page .header .container {
+    flex-direction: column;
+  }
+
+  .character-listing-page-filters {
+    width: 100%;
+    margin-top: 16px;
+  }
+
+  .character-listing-page-filters:not(.show-mobile) {
+    display: none;
+  }
+
+  .character-listing-page-filters-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .character-listing-page .combo-box + .combo-box,
+  .character-listing-page .year-input + .year-input {
+    margin-top: 8px;
+  }
+}
+
+@media (min-width: 800px) {
+  .character-listing-page .character-listing-page-filter-button {
+    display: none;
+  }
+
+  .character-listing-page-filters {
+    flex: 1;
+    margin-left: 32px;
+  }
+
+  .character-listing-page .combo-box + .combo-box,
+  .character-listing-page .year-input + .year-input {
+    margin-left: 8px;
+  }
+}

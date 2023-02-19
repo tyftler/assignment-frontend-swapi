@@ -1,3 +1,4 @@
+import { Card, CardContent } from '@mui/material';
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
 
 interface Props {
@@ -18,10 +19,14 @@ export default function ErrorPage(props: Props) {
   }
 
   return (
-    <div className="error-page">
-      <h2>Error</h2>
-      <p>Sorry, something went wrong.</p>
-      <code>{errorText}</code>
+    <div className="error-page container">
+      <Card>
+        <CardContent>
+          <h2>Error</h2>
+          <p>Sorry, something went wrong.</p>
+          <code>{errorText}</code>
+        </CardContent>
+      </Card>
     </div>
   );
 }

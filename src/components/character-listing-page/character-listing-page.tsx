@@ -1,31 +1,33 @@
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import {
+  Button,
+  Card,
+  CardActionArea,
+  CardContent,
+  Typography
+} from '@mui/material';
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ResourcesContext } from '../../contexts/resource';
 import { useFilteredCharacters } from '../../hooks/character';
 import { getSignedYear } from '../../utils';
-import Select from '../shared/select';
-import YearInput from '../shared/year-input';
+import ComboBox from '../shared/combo-box/combo-box';
+import Header from '../shared/header/header';
+import YearInput from '../shared/year-input/year-input';
+import './character-listing-page.css';
 
 interface Props {}
 
 export default function CharacterListingPage(props: Props) {
   const { characters, species, films } = useContext(ResourcesContext);
 
-  const [speciesFilter, setSpeciesFilter] = useState('');
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [filmFilter, setFilmFilter] = useState('');
+  const [speciesFilter, setSpeciesFilter] = useState('');
   const [minYearFilter, setMinYearFilter] = useState('');
   const [minYearIsBbyFilter, setMinYearIsBbyFilter] = useState(true);
   const [maxYearFilter, setMaxYearFilter] = useState('');
   const [maxYearIsBbyFilter, setMaxYearIsBbyFilter] = useState(false);
-
-  const speciesOptions = [
-    { value: '', label: 'All' },
-    ...species.map(spec => ({ value: spec.name, label: spec.name }))
-  ];
-  const filmOptions = [
-    { value: '', label: 'All' },
-    ...films.map(film => ({ value: film.title, label: film.title }))
-  ];
 
   const onMinYearChange = (year: string, isBby: boolean) => {
     setMinYearFilter(year);
@@ -44,38 +46,110 @@ export default function CharacterListingPage(props: Props) {
     getSignedYear(maxYearFilter, maxYearIsBbyFilter)
   );
 
+  const FilterButton = (
+    <Button
+      variant={showMobileFilters ? 'contained' : 'outlined'}
+      color="secondary"
+      className="character-listing-page-filter-button"
+      onClick={() => setShowMobileFilters(!showMobileFilters)}
+    >
+      {!showMobileFilters ? (
+        <>
+          <div>
+            Film: <strong>{filmFilter || 'Any'}</strong>
+          </div>
+          <div>
+            Species: <strong>{speciesFilter || 'Any'}</strong>
+          </div>
+          <div>
+            Year:{' '}
+            <strong>
+              {minYearFilter
+                ? `${minYearFilter} ${minYearIsBbyFilter ? 'BBY' : 'ABY'}`
+                : 'Any'}
+              {' - '}
+              {maxYearFilter
+                ? `${maxYearFilter} ${maxYearIsBbyFilter ? 'BBY' : 'ABY'}`
+                : 'Any'}
+            </strong>
+          </div>
+        </>
+      ) : (
+        'Hide Filters'
+      )}
+    </Button>
+  );
+
+  const Filters = (
+    <div
+      className={`character-listing-page-filters ${
+        showMobileFilters ? 'show-mobile' : ''
+      }`}
+    >
+      <div className="character-listing-page-filters-row">
+        <ComboBox
+          label="Film"
+          options={films.map(film => film.title)}
+          value={filmFilter}
+          onChange={value => setFilmFilter(value)}
+        />
+        <ComboBox
+          label="Species"
+          options={species.map(spec => spec.name)}
+          value={speciesFilter}
+          onChange={value => setSpeciesFilter(value)}
+        />
+      </div>
+
+      <div className="character-listing-page-filters-row">
+        <YearInput
+          label="From Year"
+          year={minYearFilter}
+          isBby={minYearIsBbyFilter}
+          onChange={onMinYearChange}
+        />
+        <YearInput
+          label="To Year"
+          year={maxYearFilter}
+          isBby={maxYearIsBbyFilter}
+          onChange={onMaxYearChange}
+        />
+      </div>
+    </div>
+  );
+
   return (
     <div className="character-listing-page">
-      <h2>Characters</h2>
-      <Select
-        options={speciesOptions}
-        value={speciesFilter}
-        onChange={event => setSpeciesFilter(event.target.value)}
-      />
-      <Select
-        options={filmOptions}
-        value={filmFilter}
-        onChange={event => setFilmFilter(event.target.value)}
-      />
-      <YearInput
-        year={minYearFilter}
-        isBby={minYearIsBbyFilter}
-        onChange={onMinYearChange}
-      />
-      <YearInput
-        year={maxYearFilter}
-        isBby={maxYearIsBbyFilter}
-        onChange={onMaxYearChange}
-      />
-      <ul>
+      <Header>
+        <h2>Characters</h2>
+
+        {FilterButton}
+
+        {Filters}
+      </Header>
+
+      <div className="container">
         {filteredCharacters.map(character => (
-          <li key={`character-${character.id}`}>
-            <Link to={`/characters/${character.id}`}>
-              {character.name} ({character.birth_year})
-            </Link>
-          </li>
+          <Card key={`character-${character.id}`} className="card">
+            <CardActionArea component={Link} to={`/characters/${character.id}`}>
+              <CardContent>
+                <AccountCircleIcon fontSize="large" />
+
+                <h3>{character.name}</h3>
+                <Typography color="text.secondary">
+                  {character.birth_year}
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
         ))}
-      </ul>
+
+        {!filteredCharacters.length && (
+          <Card className="card">
+            <CardContent>No matching character could be found.</CardContent>
+          </Card>
+        )}
+      </div>
     </div>
   );
 }
