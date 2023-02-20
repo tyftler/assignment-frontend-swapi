@@ -3,12 +3,17 @@ import App from './components/app/app';
 import CharacterDetailPage from './components/character-detail-page/character-detail-page';
 import CharacterListingPage from './components/character-listing-page/character-listing-page';
 import ErrorPage from './components/error-page/error-page';
+import Layout from './components/shared/layout/layout';
 
 export const router = createBrowserRouter([
   {
     path: '',
     element: <App />,
-    errorElement: <App outlet={<ErrorPage />} />,
+    errorElement: (
+      <Layout>
+        <ErrorPage />
+      </Layout>
+    ),
     children: [
       {
         path: '/characters',

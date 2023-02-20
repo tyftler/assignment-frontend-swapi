@@ -1,76 +1,41 @@
 import '@fontsource/titillium-web/400.css';
 import '@fontsource/titillium-web/700.css';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import {
-  Card,
-  CardContent,
-  CircularProgress,
-  CssBaseline,
-  IconButton,
-  ThemeProvider,
-  Typography
-} from '@mui/material';
+import { Card, CardContent, CircularProgress, Typography } from '@mui/material';
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { ResourcesContext } from '../../contexts/resource';
 import { useResources } from '../../hooks/resource';
 import ErrorPage from '../error-page/error-page';
-import { theme } from './app-theme';
+import Layout from '../shared/layout/layout';
 import './app.css';
 
-interface Props {
-  outlet?: any;
-}
+interface Props {}
 
 export default function App(props: Props) {
   const [resources, isLoaded, loadingError] = useResources();
 
-  const AppHeader = (
-    <header className="app-header container">
-      <h1>SWAPI</h1>
-
-      <IconButton
-        href="https://github.com/tyftler/assignment-frontend-swapi"
-        target="_blank"
-      >
-        <GitHubIcon fontSize="large" />
-      </IconButton>
-    </header>
-  );
-
-  const AppLoading = (
-    <div className="app-loading container">
-      <Card>
-        <CardContent>
-          <Typography color="primary">
-            May the SWAPI&apos;s response time be with you...
-          </Typography>
-
-          <CircularProgress color="secondary" />
-        </CardContent>
-      </Card>
-    </div>
-  );
-
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <ResourcesContext.Provider value={resources}>
+    <ResourcesContext.Provider value={resources}>
+      <Layout>
         <div className="app">
-          {AppHeader}
+          {!isLoaded && (
+            <div className="app-loading container">
+              <Card>
+                <CardContent>
+                  <Typography color="primary">
+                    May the SWAPI&apos;s response time be with you...
+                  </Typography>
 
-          {!isLoaded && AppLoading}
+                  <CircularProgress color="secondary" />
+                </CardContent>
+              </Card>
+            </div>
+          )}
 
           {isLoaded &&
-            (loadingError ? (
-              <ErrorPage error={loadingError} />
-            ) : props.outlet ? (
-              props.outlet
-            ) : (
-              <Outlet />
-            ))}
+            (loadingError ? <ErrorPage error={loadingError} /> : <Outlet />)}
         </div>
-      </ResourcesContext.Provider>
-    </ThemeProvider>
+      </Layout>
+    </ResourcesContext.Provider>
   );
 }
