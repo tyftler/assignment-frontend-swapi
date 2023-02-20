@@ -29,11 +29,11 @@ export default function CharacterListingPage(props: Props) {
   const [maxYearFilter, setMaxYearFilter] = useState('');
   const [maxYearIsBbyFilter, setMaxYearIsBbyFilter] = useState(false);
 
-  const onMinYearChange = (year: string, isBby: boolean) => {
+  const onMinYearFilterChange = (year: string, isBby: boolean) => {
     setMinYearFilter(year);
     setMinYearIsBbyFilter(isBby);
   };
-  const onMaxYearChange = (year: string, isBby: boolean) => {
+  const onMaxYearFilterChange = (year: string, isBby: boolean) => {
     setMaxYearFilter(year);
     setMaxYearIsBbyFilter(isBby);
   };
@@ -91,13 +91,13 @@ export default function CharacterListingPage(props: Props) {
           label="Film"
           options={films.map(film => film.title)}
           value={filmFilter}
-          onChange={value => setFilmFilter(value)}
+          onChange={setFilmFilter}
         />
         <ComboBox
           label="Species"
           options={species.map(spec => spec.name)}
           value={speciesFilter}
-          onChange={value => setSpeciesFilter(value)}
+          onChange={setSpeciesFilter}
         />
       </div>
 
@@ -106,13 +106,13 @@ export default function CharacterListingPage(props: Props) {
           label="From Year"
           year={minYearFilter}
           isBby={minYearIsBbyFilter}
-          onChange={onMinYearChange}
+          onChange={onMinYearFilterChange}
         />
         <YearInput
           label="To Year"
           year={maxYearFilter}
           isBby={maxYearIsBbyFilter}
-          onChange={onMaxYearChange}
+          onChange={onMaxYearFilterChange}
         />
       </div>
     </div>

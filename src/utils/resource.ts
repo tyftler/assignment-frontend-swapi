@@ -1,5 +1,6 @@
 import { forkJoin, map, Observable, of, switchMap } from 'rxjs';
 import { fromFetch } from 'rxjs/fetch';
+import config from '../config.json';
 import { ResourcePageResponse } from '../types';
 
 export const fetchResourcePage = <T>(
@@ -7,7 +8,7 @@ export const fetchResourcePage = <T>(
   page?: number
 ): Observable<ResourcePageResponse<T>> => {
   return fromFetch<ResourcePageResponse<T>>(
-    `https://swapi.dev/api/${path}/${page ? `?page=${page}` : ''}`,
+    `${config.apiBaseUrl}/${path}/${page ? `?page=${page}` : ''}`,
     {
       selector: response => response.json()
     }

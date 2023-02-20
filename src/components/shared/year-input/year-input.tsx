@@ -44,7 +44,10 @@ export default function YearInput({ label, year, isBby, onChange }: Props) {
       type="number"
       label={label}
       value={year}
-      InputProps={{ endAdornment: TrailingButtons }}
+      InputProps={{
+        inputMode: 'numeric',
+        endAdornment: TrailingButtons
+      }}
       className="year-input"
       onChange={event => onYearChange(event.target.value)}
     />
