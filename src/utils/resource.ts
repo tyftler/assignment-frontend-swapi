@@ -18,7 +18,8 @@ export const fetchResourcePage = <T>(
 export const fetchResource = <T>(path: string): Observable<T[]> => {
   return fetchResourcePage<T>(path).pipe(
     switchMap(firstResponse => {
-      // another option would be to fetch the pages recursively using the "next" property but this prevents parallel fetching
+      // another option would be to fetch the pages recursively using
+      // the "next" property but this prevents parallel fetching
       const pageCount = Math.ceil(
         firstResponse.count / firstResponse.results.length
       );

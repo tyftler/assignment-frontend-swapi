@@ -10,16 +10,20 @@ import {
   ThemeProvider,
   Typography
 } from '@mui/material';
-import React, { PropsWithChildren } from 'react';
+import React from 'react';
+import { Outlet } from 'react-router-dom';
 import { ResourcesContext } from '../../contexts/resource';
 import { useResources } from '../../hooks/resource';
+import ErrorPage from '../error-page/error-page';
 import { theme } from './app-theme';
 import './app.css';
 
-interface Props {}
+interface Props {
+  outlet?: any;
+}
 
-export default function App({ children }: PropsWithChildren<Props>) {
-  const [resources, isLoaded] = useResources();
+export default function App(props: Props) {
+  const [resources, isLoaded, loadingError] = useResources();
 
   const AppHeader = (
     <header className="app-header container">
@@ -55,7 +59,16 @@ export default function App({ children }: PropsWithChildren<Props>) {
         <div className="app">
           {AppHeader}
 
-          {isLoaded ? children : AppLoading}
+          {!isLoaded && AppLoading}
+
+          {isLoaded &&
+            (loadingError ? (
+              <ErrorPage error={loadingError} />
+            ) : props.outlet ? (
+              props.outlet
+            ) : (
+              <Outlet />
+            ))}
         </div>
       </ResourcesContext.Provider>
     </ThemeProvider>

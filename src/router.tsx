@@ -1,11 +1,14 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
+import App from './components/app/app';
 import CharacterDetailPage from './components/character-detail-page/character-detail-page';
 import CharacterListingPage from './components/character-listing-page/character-listing-page';
 import ErrorPage from './components/error-page/error-page';
 
 export const router = createBrowserRouter([
   {
-    errorElement: <ErrorPage />,
+    path: '',
+    element: <App />,
+    errorElement: <App outlet={<ErrorPage />} />,
     children: [
       {
         path: '/characters',
